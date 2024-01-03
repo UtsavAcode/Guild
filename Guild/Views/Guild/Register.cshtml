@@ -4,29 +4,34 @@
 <h1 class=" "> Register Yourself</h1>
 <form method="post" action="Register" class="mt-5">
     <div class="mb-3">
-        <label for="" class="form-label">Name</label>
+        <label for="Name" class="form-label">Name</label>
         <input type="text" class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label for="" class="form-label">Email</label>
+        <label for="Email" class="form-label">Email</label>
         <input type="email" class="form-control" asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label for="" class="form-label">Phone</label>
+        <label for="Phone" class="form-label">Phone</label>
         <input type="number" class="form-control" asp-for="Phone" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
 
     </div>
 
     <div class="mb-3">
-        <label for="" class="form-label">Age</label>
+        <label for="Age" class="form-label">Age</label>
         <input type="number" class="form-control" asp-for="Age" />
+        <span asp-validation-for="Age" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label for="" class="form-label">Password</label>
+        <label for="Password" class="form-label">Password</label>
         <input type="password" class="form-control" asp-for="Password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

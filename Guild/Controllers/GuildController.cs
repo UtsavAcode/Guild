@@ -39,22 +39,27 @@ namespace Guild.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> Register(Register reg)
+        public async Task<IActionResult> Register(Register reg)
         {
-            var worker = new worker()
+            if (ModelState.IsValid)
             {
-                Name = reg.Name,
-                Email = reg.Email,
-                Age = reg.Age,
-                Password = reg.Password,
-                Phone = reg.Phone,
+                var worker = new worker()
+                {
+                    Name = reg.Name,
+                    Email = reg.Email,
+                    Age = reg.Age,
+                    Password = reg.Password,
+                    Phone = reg.Phone,
 
-            };
+                };
 
-            await applicationDbContext.Workers.AddAsync(worker);
-            await applicationDbContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+                await applicationDbContext.Workers.AddAsync(worker);
+                await applicationDbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(reg);
         }
+        
 
 
     }
