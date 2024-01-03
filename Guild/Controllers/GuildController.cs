@@ -20,10 +20,15 @@ namespace Guild.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var employees = await applicationDbContext.Workers.ToListAsync();
-            return View(employees);
+            var workers = await applicationDbContext.Workers.ToListAsync();
+            return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Login()
+        {
+            return View();
+        }
 
 
 
