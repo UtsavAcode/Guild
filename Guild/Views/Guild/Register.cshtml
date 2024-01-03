@@ -1,0 +1,33 @@
+﻿@model Guild.Models.Register
+@{
+}
+<h1 class=" "> Register Yourself</h1>
+<form method="post" action="Register" class="mt-5">
+    <div class="mb-3">
+        <label for="" class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name" />
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Email</label>
+        <input type="email" class="form-control" asp-for="Email" />
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Phone</label>
+        <input type="number" class="form-control" asp-for="Phone" />
+
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Age</label>
+        <input type="number" class="form-control" asp-for="Age" />
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Password</label>
+        <input type="password" class="form-control" asp-for="Password" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
