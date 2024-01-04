@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Guild.Models
 {
@@ -16,8 +17,9 @@ namespace Guild.Models
         [Required (ErrorMessage ="Age is required.")]
         [Range(18, int.MaxValue, ErrorMessage = "Age must be 18 years or older.")]
         public int Age { get; set; }
-        
-     
+
+
+        [UniqueEmail(ErrorMessage = "This email is already in use.")]
         public string Email { get; set; }
 
 
@@ -28,7 +30,7 @@ namespace Guild.Models
 
         
         [Required(ErrorMessage ="The phone number is required.")]
-        [StringLength(10,MinimumLength = 10, ErrorMessage ="This phone number donot exist.")]
+        [StringLength(10,MinimumLength = 9, ErrorMessage ="This phone number donot exist.")]
         //[PhoneNotExists(ErrorMessage="The phone number is already exists. Please use a new number.")]
         public int Phone { get; set; } 
 
@@ -36,6 +38,26 @@ namespace Guild.Models
     }
 
 
+    public class UniqueEmailAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var context = (ApplicationDbContext)validationContext.GetService(typeof(ApplicationDbContext));
+            var email = value.ToString();
+
+            var existingUser = context.Workers.FirstOrDefault(x => x.Email == email);
+
+            if (existingUser != null)
+            {
+                return new ValidationResult("This email is already in use. Please use another email.");
+            }
+            return ValidationResult.Success;
+        }
+    }
+
     
-    
+
+
+
+
 }
