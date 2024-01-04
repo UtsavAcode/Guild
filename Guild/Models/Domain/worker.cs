@@ -15,7 +15,7 @@ namespace Guild.Models.Domain
 
         public string Password { get; set; }
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
 
     }
