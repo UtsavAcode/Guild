@@ -3,6 +3,7 @@ using Guild.Models;
 using Guild.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Guild.Controllers
 {
@@ -41,6 +42,10 @@ namespace Guild.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(Register reg)
         {
+
+            
+
+
             if (ModelState.IsValid)
             {
                 var worker = new worker()
@@ -52,11 +57,15 @@ namespace Guild.Controllers
                     Phone = reg.Phone,
 
                 };
+            
 
                 await applicationDbContext.Workers.AddAsync(worker);
                 await applicationDbContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
+
+
             }
+
             return View(reg);
         }
         
