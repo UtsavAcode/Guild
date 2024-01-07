@@ -48,6 +48,7 @@ namespace Guild.Controllers
 
             if (ModelState.IsValid)
             {
+             
                 var worker = new worker()
                 {
                     Name = reg.Name,
