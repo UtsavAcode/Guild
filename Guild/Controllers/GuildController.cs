@@ -53,7 +53,7 @@ namespace Guild.Controllers
 
         public async Task<IActionResult> Register(Register reg)
         {
-
+            //ModelState.IsValid means that if there is no error validation in the form excute the code in the if statement.
             if (ModelState.IsValid)
             {
              

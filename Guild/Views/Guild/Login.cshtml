@@ -2,20 +2,40 @@
 @{
 }
 
-<h1>Login</h1>
-<form method="post" action="Login" class="mt-5">
-   
-    <div class="mb-3">
-        <label for="" class="form-label">Email</label>
-        <input type="email" class="form-control" asp-for="UserEmail" />
-        <span asp-validation-for="UserEmail" class="text-danger"></span>
-    </div>
+<div class="container">
+    <div class="row">
 
-    <div class="mb-3">
-        <label for="" class="form-label">Password</label>
-        <input type="password" class="form-control" asp-for="UserPassword" />
-        <span asp-validation-for="UserPassword" class="text-danger"></span>
-    </div>
+        <!--Left side for the login form.-->
+        <div class="col-md-6">
 
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+            <h1>Login</h1>
+            <form method="post" action="Login" class="mt-5">
+
+                <div class="mb-3 col-md-8">
+                    <label for="" class="form-label">Email</label>
+                    <input type="email" class="form-control" asp-for="UserEmail" />
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-md-8">
+                    <label for="" class="form-label">Password</label>
+                    <input type="password" class="form-control" asp-for="UserPassword" />
+                    <span asp-validation-for="UserPassword" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary mb-3">Login</button>
+
+                <div>
+                    <a asp-action="Register" class="text-decoration-none">Don't have an account? Go to register.</a>
+                </div>
+            </form>
+
+        </div>
+
+        <!--Right side for a image.-->
+
+        <div class="col-md-6">
+            <h1>Think of this as an image (><).</h1>
+        </div>
+    </div>
+</div>
