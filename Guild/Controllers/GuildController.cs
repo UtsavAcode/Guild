@@ -124,7 +124,7 @@ namespace Guild.Controllers
             //Incase myWorker is null
             else
             {
-                ViewBag.Messag = "Login Failed.";
+                ViewBag.Message = "Login failed, Please use correct email and password.";
             }
             return View();
         }
@@ -149,9 +149,27 @@ namespace Guild.Controllers
                 //Redirect to Login in case the user directly wants to get to the dashboard without login.
                 return RedirectToAction("Login");
             }
-            
+            ModelState.Clear();  
             return View();
         }
+        //Login section ends.
 
+
+        //The logout section starts.
+
+        public IActionResult Logout()
+        {
+            
+            
+            if(HttpContext.Session.GetString("WorkerSession") != null)
+            {
+                //Removing the session to Logout.
+                HttpContext.Session.Remove("WorkerSession");
+
+                //Redirecting to the Login view after removing the session indicating Logout.
+                return RedirectToAction("Login");
+            }
+            return View();
+        }
     }
 }

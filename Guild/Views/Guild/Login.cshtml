@@ -4,9 +4,16 @@
 
 <div class="container">
     <div class="row">
-
+   
         <!--Left side for the login form.-->
         <div class="col-md-6">
+
+            @{
+                if(ViewBag.Message != null)
+                {
+                    <p class=" text-danger ">@ViewBag.Message</p>
+                }
+            }
 
             <h1>Login</h1>
             <form method="post" action="Login" class="mt-5">
