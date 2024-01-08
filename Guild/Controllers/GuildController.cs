@@ -29,6 +29,11 @@ namespace Guild.Controllers
         {
 
             var workers = await applicationDbContext.Workers.ToListAsync();
+
+            if ( HttpContext.Session.GetString("WorkerSession") != null)
+            {
+                return RedirectToAction("Dashboard");
+            }
             return View();
         }
 
@@ -91,6 +96,13 @@ namespace Guild.Controllers
         [HttpGet]
         public async Task<IActionResult> Login()
         {
+            //Creating a statement to redirect to dashboard if session exist.
+
+            if (HttpContext.Session.GetString("WorkerSession") != null )
+            {
+                return RedirectToAction("Dashboard");
+            }
+
             return View();
 
         }
