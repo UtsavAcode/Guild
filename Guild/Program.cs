@@ -38,6 +38,17 @@ app.UseAuthorization();
 //this is also added
 app.UseAuthentication();
 
+//Admin area section.
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "area",
+      pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+    );
+});
+
+//Admin Area section ends.
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
