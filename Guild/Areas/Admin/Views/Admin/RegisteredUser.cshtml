@@ -1,0 +1,31 @@
+﻿@model List<Guild.Models.Domain.worker>
+@{
+}
+<h1> This page is for viewin all the registered workers 😛.</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Age</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var worker in Model)
+        {
+            <tr>
+                <td>@worker.Id</td>
+                <td>@worker.Name</td>
+                <td>@worker.Email</td>
+                <td>@worker.Phone</td>
+                <td>@worker.Age</td>
+                <td>@worker.Password</td>
+            </tr>
+        }
+    </tbody>
+</table>
