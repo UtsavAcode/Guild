@@ -27,7 +27,7 @@ namespace Guild.Areas.Admin.Controllers
         public async Task <IActionResult> RegisteredUser()
         {
             var workers = await applicationDbContext.Workers.ToListAsync();
-            return View("~/Areas/Admin/Views/Admin/AdminDash.cshtml", workers);
+            return View("~/Areas/Admin/Views/Admin/RegisteredUser.cshtml", workers);
         }
     }
 }
