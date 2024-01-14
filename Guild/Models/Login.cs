@@ -1,9 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Guild.Models
 {
     public class Login
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required (ErrorMessage ="Email is required.")]
         public string UserEmail { get; set; }
 

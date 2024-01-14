@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Guild.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240107065805_new")]
-    partial class @new
+    [Migration("20240114070116_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

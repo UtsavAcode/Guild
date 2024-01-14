@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -10,6 +11,11 @@ namespace Guild.Models
 {
     public class Register
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+
         [TwoWordName(ErrorMessage = "Name must consist of exactly two words.")]
         [RegularExpression(@"^[A-Za-z]+ [A-Za-z]+$", ErrorMessage ="Name must contain only letters.")]
         public string Name { get; set; }
