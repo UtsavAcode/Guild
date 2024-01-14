@@ -24,23 +24,27 @@ namespace Guild.Repository
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            dbSet.Remove(entity);
         }
 
         public void DeleteRange(IEnumerable<T> entity)
         {
-            throw new NotImplementedException();
+            dbSet.RemoveRange(entity);
         }
 
         public T Get(Expression<Func<T, bool>> filter)
         {
             IQueryable < T > query = dbSet;
             query = query.Where(filter);
+            return query.FirstOrDefault();
         }
+
+      
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = dbSet;
+            return query.ToList();
         }
 
         public void Update(T entity)
