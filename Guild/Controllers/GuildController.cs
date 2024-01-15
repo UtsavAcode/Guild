@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Eventing.Reader;
 using Microsoft.AspNetCore.Http;
+using Guild.Repository.IRepository;
 
 namespace Guild.Controllers
 {
@@ -13,10 +14,10 @@ namespace Guild.Controllers
     public class GuildController : Controller
     {
         //Assigning a private field.
-        private readonly ApplicationDbContext applicationDbContext;
+        private readonly IWorkerRepository applicationDbContext;
         
 
-        public GuildController(ApplicationDbContext applicationDbContext)
+        public GuildController(IWorkerRepository applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
         }
@@ -28,7 +29,7 @@ namespace Guild.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var workers = await applicationDbContext.Workers.ToListAsync();
+            var workers =  applicationDbContext.GetAll().ToList();
 
             if ( HttpContext.Session.GetString("WorkerSession") != null)
             {
@@ -73,8 +74,8 @@ namespace Guild.Controllers
                 };
             
 
-                await applicationDbContext.Workers.AddAsync(worker);
-                await applicationDbContext.SaveChangesAsync();
+                    applicationDbContext.Add(worker);
+                    applicationDbContext.Save();
 
                 //clear the model state to reset the form 
                 ModelState.Clear();
@@ -120,7 +121,7 @@ namespace Guild.Controllers
             //The data that comes from the login form is checked if it already exist in the table(dbSet) workers or not.
             // We create an x variable to represent the model and compare it with the incoming data login.UserEmail & UserPassword.
             // If both the condition match we use FirstOrDefault to store the entire row in myWorker.
-            var myWorker = applicationDbContext.Workers.Where(x => x.Email == login.UserEmail && x.Password == login.UserPassword).FirstOrDefault();
+            var myWorker = applicationDbContext.Get(x => x.Email == login.UserEmail && x.Password == login.UserPassword);
 
             //In the condition myWorker is not null.
 

@@ -9,13 +9,13 @@ namespace Guild.Repository
     public class WorkerRepository<T> : IRepository<T> where T : class
     {
         //Using dependency injection
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext applicationDbContext;
         internal DbSet<T> dbSet;
         //Creating a constructor.
         public WorkerRepository( ApplicationDbContext db)
         {
-            _db = db;
-            this.dbSet = _db.Set<T>();
+            applicationDbContext = db;
+            this.dbSet = applicationDbContext.Set<T>();
         }
         public void Add(T entity)
         {

@@ -27,7 +27,7 @@ namespace Guild.Repository.IRepository
         void Delete(T entity);
 
         //Method to Update.
-        void Update(T entity);
+       // void Update(T entity);
 
         //Method to delete multiple entities in a single column.
         void DeleteRange(IEnumerable<T> entity);
