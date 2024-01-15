@@ -28,6 +28,6 @@ namespace Guild.Repository
             }
 
             applicationDbContext.Workers.Update(obj);
-        }
+        }//
     }
 }
