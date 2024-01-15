@@ -30,6 +30,6 @@ namespace Guild.Areas.Admin.Controllers
             return View("~/Areas/Admin/Views/Admin/RegisteredUser.cshtml", workers);
         }
     }
-}
+}//
 
 
