@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Guild.Areas.Admin.Controllers
 {
 
-    [Area("admin")]
-    [Route("admin")]
+    [Area("Admin")]
+    [Route("Admin")]
     public class AdminController: Controller
     {
         private readonly IWorkerRepository applicationDbContext;
@@ -34,7 +34,7 @@ namespace Guild.Areas.Admin.Controllers
 
         //This is for the edit section.
 
-        [Route("EditWorker")]
+        [Route("Edit")]
         public IActionResult Edit(int Id)
         {
             if (Id == null || Id==0)
@@ -48,7 +48,22 @@ namespace Guild.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            return View("~/Areas/Admin/Views/Admin/EditWorker.cshtml", workers);
+            return View("~/Areas/Admin/Views/Admin/Edit.cshtml", workers);
+        }
+
+        //THis is the delete section.
+
+        [Route("Delete")]
+        public IActionResult Delete(int Id)
+        {
+            var worker = applicationDbContext.GetById(Id);
+            if (worker == null) { 
+            
+            return NotFound();
+            }
+
+            applicationDbContext.DeleteById(worker.Id);
+            return View();
         }
     }
 }//
