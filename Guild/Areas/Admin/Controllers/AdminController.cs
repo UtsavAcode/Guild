@@ -4,11 +4,12 @@ using Guild.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Guild.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
-    [Route("Admin")]
+
     public class AdminController: Controller
     {
         private readonly IWorkerRepository applicationDbContext;
@@ -17,24 +18,24 @@ namespace Guild.Areas.Admin.Controllers
         {
             this.applicationDbContext = applicationDbContext;
         }
-        public IActionResult Index()
+        public IActionResult AdminDash()
         {
-            return View("~/Areas/Admin/Views/Admin/AdminDash.cshtml");
+            return View();
         }
 
         //USer Details Section.
 
         [HttpGet]
-        [Route("RegisteredUser")]
+       
         public IActionResult RegisteredUser()
         {
             var workers = applicationDbContext.GetAll();
-            return View("~/Areas/Admin/Views/Admin/RegisteredUser.cshtml", workers);
+            return View(workers);
         }
 
         //This is for the edit section.
 
-        [Route("Edit")]
+ 
         public IActionResult Edit(int Id)
         {
             if (Id == null || Id==0)
@@ -48,21 +49,30 @@ namespace Guild.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            return View("~/Areas/Admin/Views/Admin/Edit.cshtml", workers);
+           // ViewData["routeInfo"] = ControllerContext.MyDisplayRouteInfo();
+
+            return View(workers);
         }
 
         //THis is the delete section.
 
-        [Route("Delete")]
+     
         public IActionResult Delete(int Id)
         {
             var worker = applicationDbContext.GetById(Id);
-            if (worker == null) { 
-            
-            return NotFound();
+            if (worker !=null) {
+
+                applicationDbContext.DeleteById(worker.Id);
+                applicationDbContext.Save();
+                return RedirectToAction("RegisteredUser");
             }
 
-            applicationDbContext.DeleteById(worker.Id);
+           
+            return RedirectToAction("RegisteredUser");
+        }
+
+        public IActionResult Profile()
+        {
             return View();
         }
     }
