@@ -22,6 +22,7 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
 builder.Services.AddScoped<IWorkerRepository, RegisterRepository>();
 
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

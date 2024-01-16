@@ -8,5 +8,11 @@ namespace Guild.Repository.IRepository
     {
         void Update(worker obj);
         void Save();
+
+
+        void DeleteById(int Id);
+
+        //This is the method to get the data by ID.
+       public worker GetById(int Id);
     }
 }

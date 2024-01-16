@@ -1,4 +1,6 @@
 ﻿using Guild.Data;
+using Guild.Models.Domain;
+using Guild.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,11 +9,11 @@ namespace Guild.Areas.Admin.Controllers
 
     [Area("admin")]
     [Route("admin")]
-    public class AdminController : Controller
+    public class AdminController: Controller
     {
-        private readonly ApplicationDbContext applicationDbContext;
+        private readonly IWorkerRepository applicationDbContext;
 
-        public AdminController(ApplicationDbContext applicationDbContext)
+        public AdminController(IWorkerRepository applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
         }
@@ -24,10 +26,22 @@ namespace Guild.Areas.Admin.Controllers
 
         [HttpGet]
         [Route("RegisteredUser")]
-        public async Task <IActionResult> RegisteredUser()
+        public IActionResult RegisteredUser()
         {
-            var workers = await applicationDbContext.Workers.ToListAsync();
+            var workers = applicationDbContext.GetAll();
             return View("~/Areas/Admin/Views/Admin/RegisteredUser.cshtml", workers);
+        }
+
+        //This is for the edit section.
+        public IActionResult Edit(int Id)
+        {
+            if (Id == null || Id==0)
+            {
+                return NotFound();
+            }
+
+            worker workers = applicationDbContext.GetById(Id);
+            return View();
         }
     }
 }//

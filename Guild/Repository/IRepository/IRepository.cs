@@ -34,9 +34,5 @@ namespace Guild.Repository.IRepository
 
         //This is the method to delete the data in through the ID.
 
-        void DeleteById(int Id);
-
-        //This is the method to get the data by ID.
-        void getById(int Id);
     }
 }
