@@ -1,4 +1,5 @@
 ﻿using Guild.Data;
+using Guild.Models.Domain;
 using Guild.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -50,6 +51,27 @@ namespace Guild.Repository
         public void Update(T entity)
         {
             throw new NotImplementedException();
+        }
+
+        //This is the class to get the data by id.
+
+        public worker GetById(int Id)
+        {
+            return applicationDbContext.Workers.FirstOrDefault(x => x.Id == Id);
+        }
+
+        //This is the class to delete the data by using the id in the database of the workers.
+
+        public void DeleteById(int Id)
+        {
+            var worker = GetById(Id);
+
+            if (worker !=null && worker.Id==Id)
+            {
+                applicationDbContext.Workers.Remove(worker);    
+                applicationDbContext.SaveChanges();
+            }
+           
         }
     }
 }
