@@ -33,6 +33,8 @@ namespace Guild.Areas.Admin.Controllers
         }
 
         //This is for the edit section.
+
+        [Route("EditWorker")]
         public IActionResult Edit(int Id)
         {
             if (Id == null || Id==0)
@@ -41,7 +43,12 @@ namespace Guild.Areas.Admin.Controllers
             }
 
             worker workers = applicationDbContext.GetById(Id);
-            return View();
+
+            if (workers == null)
+            {
+                return NotFound();
+            }
+            return View("~/Areas/Admin/Views/Admin/EditWorker.cshtml", workers);
         }
     }
 }//
