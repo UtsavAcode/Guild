@@ -7,12 +7,15 @@ namespace Guild.Repository.IRepository
     public interface IWorkerRepository : IRepository<worker>
     {
         void Update(worker obj);
+
+       /* void UpdateWorker(worker obj);*/
         void Save();
 
 
         void DeleteById(int Id);
 
         //This is the method to get the data by ID.
-       public worker GetById(int Id);
+        //public worker GetById(int Id);
+        worker GetById(int Id);
     }
 }

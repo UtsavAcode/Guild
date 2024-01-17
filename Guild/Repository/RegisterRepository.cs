@@ -2,6 +2,7 @@
 using Guild.Models;
 using Guild.Models.Domain;
 using Guild.Repository.IRepository;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using NuGet.Protocol.Core.Types;
 using System.Linq.Expressions;
 
@@ -19,24 +20,25 @@ namespace Guild.Repository
             applicationDbContext.SaveChanges();
         }
 
+
         public void Update(worker obj)
         {
 
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj), "The object to update cannot be null.");
-            }
-
-            applicationDbContext.Workers.Update(obj);
+            applicationDbContext.Workers?.Update(obj);
         }//
 
 
         //This is the class to get the data by id.
 
+
         public worker GetById(int Id)
         {
             return applicationDbContext.Workers.FirstOrDefault(x => x.Id == Id);
         }
+
+
+
+
 
         //This is the class to delete the data by using the id in the database of the workers.
 
@@ -51,5 +53,8 @@ namespace Guild.Repository
             }
 
         }
+
+
+
     }
 }

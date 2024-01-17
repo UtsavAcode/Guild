@@ -48,10 +48,7 @@ namespace Guild.Repository
             return query.ToList();
         }
 
-        public void Update(T entity)
-        {
-            throw new NotImplementedException();
-        }
+       
 
     }
 }
