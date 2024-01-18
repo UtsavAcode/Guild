@@ -3,108 +3,82 @@ using Guild.Models;
 using Guild.Models.Domain;
 using Guild.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 
 namespace Guild.Areas.Admin.Controllers
 {
-
     [Area("Admin")]
-
-    public class AdminController: Controller
+    public class AdminController : Controller
     {
-        private readonly IWorkerRepository applicationDbContext;
+        private readonly IWorkerRepository _context;
 
-        public AdminController(IWorkerRepository applicationDbContext)
+        public AdminController(IWorkerRepository context) 
         {
-            this.applicationDbContext = applicationDbContext;
+            _context = context;
         }
-        public IActionResult AdminDash()
+        public IActionResult Index()
         {
             return View();
         }
 
-        //USer Details Section.
-
         [HttpGet]
-       
-        public IActionResult RegisteredUser()
+        public IActionResult Users()
         {
-            var workers = applicationDbContext.GetAll();
-            return View(workers);
+            var workers = _context.GetAll();
+
+            if (workers != null) {
+                return View(workers);
+            }
+            return View();
+            
         }
 
-        //This is for the edit section.
-
-        [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Update(int Id)
         {
-           var workers = applicationDbContext.GetById(Id);
+            var workers = _context.Get(w => w.Id ==Id);
 
-            if (workers != null)
-            {
-                var viewModel = new worker()
+            if (workers != null) {
+                var workerData = new Update()
                 {
 
                     Id = workers.Id,
                     Name = workers.Name,
                     Email = workers.Email,
+                    Phone = workers.Phone,
                     Age = workers.Age,
                     Password = workers.Password,
-                    Phone = workers.Phone,
                 };
 
-                return View("Edit",viewModel);
-
+                return View(workerData);
             }
-            return RedirectToAction("RegisteredUser");
+
+            return RedirectToAction("Users");
+           
         }
 
-        //THis is the section that handles the changes made in the update.
+
         [HttpPost]
-        public IActionResult Update(worker obj)
-        {
 
-            var existingWorker = applicationDbContext.GetById(obj.Id);
+        public IActionResult Update(Update model) {
 
-            if (existingWorker != null)
+            var workers = _context.FindById(model.Id);
+
+            if (workers != null)
             {
-                existingWorker.Name = obj.Name;
-                existingWorker.Email = obj.Email;
-                existingWorker.Password = obj.Password;
-                existingWorker.Phone = obj.Phone;
-                existingWorker.Age = obj.Age;
+                workers.Name = model.Name;
+                workers.Email = model.Email;
+                workers.Phone = model.Phone;
+                workers.Age = model.Age;
 
-                applicationDbContext.Update(existingWorker);
-                return RedirectToAction("RegisteredUser");
+                _context.Update(workers);
+                _context.Save();
+
+                return RedirectToAction("Users");
             }
 
-            return RedirectToAction("AdminDash");
+            return View("Update",model);
+
         }
-        //THis is the delete section.
 
-
-        /*  public IActionResult Delete(int Id)
-          {
-              var worker = applicationDbContext.GetById(Id);
-              if (worker !=null) {
-
-                  applicationDbContext.DeleteById(worker.Id);
-                  applicationDbContext.Save();
-                  return RedirectToAction("RegisteredUser");
-              }
-
-
-              return RedirectToAction("RegisteredUser");
-          }*/
-
-        public IActionResult Delete(int Id)
-        {
-            applicationDbContext.DeleteById(Id);
-            return ViewBag.Message("Somethig wrong.");
-        }
 
     }
-}//
-
-
+}

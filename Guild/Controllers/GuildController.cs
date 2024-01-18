@@ -14,12 +14,12 @@ namespace Guild.Controllers
     public class GuildController : Controller
     {
         //Assigning a private field.
-        private readonly IWorkerRepository applicationDbContext;
+        private readonly IWorkerRepository _workerContext;
         
 
         public GuildController(IWorkerRepository applicationDbContext)
         {
-            this.applicationDbContext = applicationDbContext;
+            this._workerContext = applicationDbContext;
         }
 
 
@@ -29,7 +29,7 @@ namespace Guild.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var workers =  applicationDbContext.GetAll().ToList();
+            var workers = _workerContext.GetAll().ToList();
 
             if ( HttpContext.Session.GetString("WorkerSession") != null)
             {
@@ -72,10 +72,10 @@ namespace Guild.Controllers
                     Phone = reg.Phone,
 
                 };
-            
 
-                    applicationDbContext.Add(worker);
-                    applicationDbContext.Save();
+
+                _workerContext.Add(worker);
+                _workerContext.Save();
 
                 //clear the model state to reset the form 
                 ModelState.Clear();
@@ -121,7 +121,7 @@ namespace Guild.Controllers
             //The data that comes from the login form is checked if it already exist in the table(dbSet) workers or not.
             // We create an x variable to represent the model and compare it with the incoming data login.UserEmail & UserPassword.
             // If both the condition match we use FirstOrDefault to store the entire row in myWorker.
-            var myWorker = applicationDbContext.Get(x => x.Email == login.UserEmail && x.Password == login.UserPassword);
+            var myWorker = _workerContext.Get(x => x.Email == login.UserEmail && x.Password == login.UserPassword);
 
             //In the condition myWorker is not null.
 

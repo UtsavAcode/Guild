@@ -1,5 +1,6 @@
 using Guild.Data;
 using Guild.Repository;
+using Guild.Repository.Implementation;
 using Guild.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +20,7 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
 );
 
 //Adding the Repository service.
-builder.Services.AddScoped<IWorkerRepository, RegisterRepository>();
-
+builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
 
 
 var app = builder.Build();
