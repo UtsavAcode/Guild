@@ -1,4 +1,5 @@
-﻿@model List<Guild.Models.Profile>
+﻿
+@model List<Guild.Models.Domain.worker>
 @{
 }
 
@@ -39,14 +40,19 @@
                     <!--Logout Section starts.-->
                     <ul class="ml-auto navbar-nav">
 
+                        @foreach (var worker in Model ?? new List<Guild.Models.Domain.worker>())
+                        {
+                            <li class="nav-item">
+                                @if (worker != null && worker.Id != null)
+                                {
+                                    <a class="nav-link text-dark btn btn-primary" asp-controller="Guild" asp-action="Profile" asp-route-id="@worker.Id">
+                                        Profile
+                                        <i class="bi bi-door-open"></i>
+                                    </a>
+                                }
+                            </li>
+                        }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-primary"  asp-controller="Guild" asp-action="Profile">
-                                Profile
-                                <i class="bi bi-door-open"></i>
-
-                            </a>
-                        </li>
 
 
                         <li class="nav-item">
