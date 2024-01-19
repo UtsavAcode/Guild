@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Eventing.Reader;
 using Microsoft.AspNetCore.Http;
 using Guild.Repository.IRepository;
+using Guild.Views.Guild;
+
 
 namespace Guild.Controllers
 {
@@ -15,11 +17,15 @@ namespace Guild.Controllers
     {
         //Assigning a private field.
         private readonly IWorkerRepository _workerContext;
-        
+        private readonly IProfileRepository _profileContext;
+  /*      private readonly IRegisterRepository _registerContext;*/
 
-        public GuildController(IWorkerRepository applicationDbContext)
+
+        public GuildController(IWorkerRepository applicationDbContext, IProfileRepository profileDbContext/*, IRegisterRepository registerDbContext*/)
         {
             this._workerContext = applicationDbContext;
+            this._profileContext = profileDbContext;
+           /* this._registerContext = registerDbContext;*/
         }
 
 
@@ -31,14 +37,14 @@ namespace Guild.Controllers
 
             var workers = _workerContext.GetAll().ToList();
 
-            if ( HttpContext.Session.GetString("WorkerSession") != null)
+            if (HttpContext.Session.GetString("WorkerSession") != null)
             {
                 return RedirectToAction("Dashboard");
             }
             return View();
         }
 
-        
+
 
 
         //The register area is below.
@@ -57,12 +63,12 @@ namespace Guild.Controllers
         //Register inside Register(Register reg) action is the model we are using.
         //reg is the object of that model.
 
-        public async Task<IActionResult> Register(Register reg)
+        public async Task<IActionResult> Register(Models.Register reg)
         {
             //ModelState.IsValid means that if there is no error validation in the form excute the code in the if statement.
             if (ModelState.IsValid)
             {
-             
+
                 var worker = new worker()
                 {
                     Name = reg.Name,
@@ -99,7 +105,7 @@ namespace Guild.Controllers
         {
             //Creating a statement to redirect to dashboard if session exist.
 
-            if (HttpContext.Session.GetString("WorkerSession") != null )
+            if (HttpContext.Session.GetString("WorkerSession") != null)
             {
                 return RedirectToAction("Dashboard");
             }
@@ -114,7 +120,7 @@ namespace Guild.Controllers
 
         //The Login action method is using the Login model and the login object.
         //The data will be stored there and be compared to the data in the database and allowed login.
-        public async Task<IActionResult> Login (Login login)
+        public async Task<IActionResult> Login(Models.Login login)
         {
 
             //The myWorker variable is created to store the data that comes from the login form.
@@ -162,7 +168,7 @@ namespace Guild.Controllers
                 //Redirect to Login in case the user directly wants to get to the dashboard without login.
                 return RedirectToAction("Login");
             }
-            ModelState.Clear();  
+            ModelState.Clear();
             return View();
         }
         //Login section ends.
@@ -172,9 +178,9 @@ namespace Guild.Controllers
 
         public IActionResult Logout()
         {
-            
-            
-            if(HttpContext.Session.GetString("WorkerSession") != null)
+
+
+            if (HttpContext.Session.GetString("WorkerSession") != null)
             {
                 //Removing the session to Logout.
                 HttpContext.Session.Remove("WorkerSession");
@@ -184,5 +190,57 @@ namespace Guild.Controllers
             }
             return View();
         }
+
+        //Create your user profiles.
+
+        [HttpGet]
+        public IActionResult Profile(int Id)
+        {
+            ViewBag.Id = Id;
+            worker userData = _workerContext.FindById(Id);
+            if (userData != null)
+            {
+                //Creating a profile model using the data from the register model.
+
+                Models.Profile profileData = new Models.Profile
+                {
+                    WorkerId = userData.Id,
+                    Name = userData.Name,
+                    Email = userData.Email,
+                    Phone = userData.Phone,
+                    Age = userData.Age,
+
+                };
+
+                return View(profileData);
+            }
+            return View();
+        }
+
+            [HttpPost]
+
+            public IActionResult Profile(Models.Profile model)
+            {
+                if (ModelState.IsValid)
+                {
+                    var User = new Models.Profile()
+                    {
+                        WorkerId = model.WorkerId,
+                        Name = model.Name,
+                        Age = model.Age,
+                        Email = model.Email,
+                        Password = model.Password,
+                        Phone = model.Phone,
+                        Address = model.Address,
+                    };
+
+                    _profileContext.Add(User);
+                    _profileContext.Save();
+
+                    return RedirectToAction("Index");
+                }
+
+            return View(model);
+            }
+        }
     }
-}

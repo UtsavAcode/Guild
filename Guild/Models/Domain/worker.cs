@@ -17,6 +17,8 @@ namespace Guild.Models.Domain
 
         public string Phone { get; set; }
 
+        public virtual Profile Profile { get; set; }
+
 
     }
 }

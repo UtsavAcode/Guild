@@ -13,7 +13,7 @@ namespace Guild.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int RegisterId { get; set; }
 
 
         [TwoWordName(ErrorMessage = "Name must consist of exactly two words.")]

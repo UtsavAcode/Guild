@@ -11,7 +11,7 @@ namespace Guild.Areas.Admin.Controllers
     {
         private readonly IWorkerRepository _context;
 
-        public AdminController(IWorkerRepository context) 
+        public AdminController(IWorkerRepository context)
         {
             _context = context;
         }
@@ -29,12 +29,12 @@ namespace Guild.Areas.Admin.Controllers
                 return View(workers);
             }
             return View();
-            
+
         }
 
         public IActionResult Update(int Id)
         {
-            var workers = _context.Get(w => w.Id ==Id);
+            var workers = _context.Get(w => w.Id == Id);
 
             if (workers != null) {
                 var workerData = new Update()
@@ -52,7 +52,7 @@ namespace Guild.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Users");
-           
+
         }
 
 
@@ -75,10 +75,11 @@ namespace Guild.Areas.Admin.Controllers
                 return RedirectToAction("Users");
             }
 
-            return View("Update",model);
+            return View("Update", model);
 
         }
 
+        
 
     }
 }

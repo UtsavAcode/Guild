@@ -21,6 +21,8 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
 
 //Adding the Repository service.
 builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+/*builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();*/
 
 
 var app = builder.Build();
