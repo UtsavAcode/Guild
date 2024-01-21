@@ -1,5 +1,6 @@
 ﻿using Guild.Data;
 using Guild.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Guild.Repository.Implementation
 {
@@ -7,42 +8,40 @@ namespace Guild.Repository.Implementation
     {
 
         private readonly ApplicationDbContext _context;
+        public DbSet<T> dbSet;
 
         public Repository(ApplicationDbContext context)
         {
             _context = context;
+            this.dbSet = _context.Set<T>();
         }
         public void Delete(T entity)
         {
-            _context.Set<T>().Remove(entity);
-             _context.SaveChanges();
-        }
-
-        public void DeleteRange(IEnumerable<T> entities)
-        {
-          _context.Set<T>().RemoveRange(entities);
+            dbSet.Remove(entity);
             _context.SaveChanges();
         }
 
-        public IEnumerable<T> GetEnumerable()
+       
+
+        public void DeleteRange(IEnumerable<T> entities)
         {
-           return _context.Set<T>().AsEnumerable();
+          _context.RemoveRange(entities);
+            _context.SaveChanges();
         }
 
-        public void Insert(T entity)
-        {
-           _context.Set<T>().Add(entity);
-           _context.SaveChanges();
-        }
+     
 
         public void InsertRange(IEnumerable<T> entities)
         {
             throw new NotImplementedException();
         }
 
-        public List<T> List()
+        public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList();  
+            IQueryable<T> query = dbSet;
+            return query.ToList();
         }
+
+     
     }
 }

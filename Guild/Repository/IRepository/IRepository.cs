@@ -3,7 +3,7 @@
     public interface IRepository<T> where T : class
     
     {
-        void Insert(T entity);
+
 
         void InsertRange(IEnumerable<T> entities);
 
@@ -11,10 +11,9 @@
 
         void DeleteRange(IEnumerable<T> entities);
 
-        List<T> List();
+        IEnumerable<T> GetAll();
 
-        IEnumerable<T> GetEnumerable();
-
+        
        
     }
 }

@@ -17,9 +17,9 @@ namespace Guild.Controllers
 
         public IActionResult Index()
         {
-            List<Register> registerList = new List<Register>();
+            var worker = _context.GetAll(); 
 
-            return View();
+            return View(worker);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Guild.Models;
+using Guild.Models.Domain;
 using Guild.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,26 +21,29 @@ namespace Guild.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(Register register)
+        public IActionResult Register(Worker worker)
         {
-            if (register != null)
-            {
-                var worker = new Models.Register()
+         
+                var register = new Register()
                 {
 
-                    Name = register.Name,
-                    Age = register.Age,
-                    Email = register.Email,
-                    Password = register.Password,
-                    Phone = register.Phone,
+                    Name = worker.Name,
+                    Age = worker.Age,
+                    Email = worker.Email,
+                    Password = worker.Password,
+                    Phone = worker.Phone,
 
                     
                 };
-                _registerContext.Add(worker);
-                _registerContext.Save();
 
+                if (register != null)
+                {
+                    _registerContext.Add(register);
+                    _registerContext.Save();
                 return RedirectToAction("Index");
             }
+
+                
             return View();
         }
     }
