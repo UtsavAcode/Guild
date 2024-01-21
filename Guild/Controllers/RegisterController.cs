@@ -17,35 +17,44 @@ namespace Guild.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult AddEmployee()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Register(Register worker)
+        public IActionResult AddEmployee(Models.Register worker)
         {
-         
-                var register = new Worker()
+            try
+            {
+                if (ModelState.IsValid)
                 {
 
-                    Name = worker.Name,
-                    Age = worker.Age,
-                    Email = worker.Email,
-                    Password = worker.Password,
-                    Phone = worker.Phone,
+                    var register = new Worker()
+                    {
 
-                    
-                };
+                        Name = worker.Name,
+                        Age = worker.Age,
+                        Email = worker.Email,
+                        Password = worker.Password,
+                        Phone = worker.Phone,
 
-               
+
+                    };
                     _registerContext.Add(register);
                     _registerContext.Save();
-                     return RedirectToAction("Index");
-            
+                   /* SetMessage("Data Inserted Successfully !", "SuccessMessage");*/
+                    return RedirectToAction("Index","Home");
+                }
+            }
 
+            catch (Exception ex)
+            {
+                /*SetMessage($"Opps !! Cannot Add Data. {ex.Message}", "ErrorMessage");*/
+                return RedirectToAction("Index");
+            }
                 
-            /*return View();*/
+            return View();
         }
     }
 }

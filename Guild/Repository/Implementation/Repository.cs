@@ -7,49 +7,29 @@ namespace Guild.Repository.Implementation
     public class Repository<T> : IRepository<T>  where T : class
     {
 
-        private readonly ApplicationDbContext _context;
-
-        internal DbSet<T> database;
-        public Repository(ApplicationDbContext context)
+       private readonly ApplicationDbContext _repository;
+        public DbSet<T> dbSet;
+        public Repository(ApplicationDbContext repository)
         {
-            
-            _context = context;
-            database = _context.Set<T>();
+            _repository = repository;
 
+            this.dbSet = _repository.Set<T>();
         }
 
         public void Add(T entity)
         {
-
-            database.Add(entity);
+            dbSet.Add(entity);
         }
+
         public void Delete(T entity)
         {
-            _context.Remove(entity);
-            _context.SaveChanges();
-        }
-
-       
-
-        public void DeleteRange(IEnumerable<T> entities)
-        {
-          _context.RemoveRange(entities);
-            _context.SaveChanges();
-        }
-
-     
-
-        public void InsertRange(IEnumerable<T> entities)
-        {
-            throw new NotImplementedException();
+            dbSet.Remove(entity);
         }
 
         public IEnumerable<T> GetAll()
         {
-            IQueryable<T> query = database;
+            IQueryable<T> query = dbSet;
             return query.ToList();
         }
-
-     
     }
 }

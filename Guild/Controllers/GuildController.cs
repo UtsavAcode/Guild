@@ -1,4 +1,5 @@
 ﻿using Guild.Models;
+using Guild.Models.Domain;
 using Guild.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,9 @@ namespace Guild.Controllers
 
         public IActionResult Index()
         {
-            var worker = _context.GetAll(); 
+            List<Worker> workers = _context.GetAll().ToList(); 
 
-            return View(worker);
+            return View(workers);
         }
     }
 }

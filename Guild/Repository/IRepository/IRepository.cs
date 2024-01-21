@@ -4,15 +4,10 @@
     
     {
 
-        public void Add(T entity);  
-        void InsertRange(IEnumerable<T> entities);
-
-        void Delete(T entity);
-
-        void DeleteRange(IEnumerable<T> entities);
-
         IEnumerable<T> GetAll();
-
+        void Add(T entity);
+        void Delete(T entity);
+        
         
        
     }
