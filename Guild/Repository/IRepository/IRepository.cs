@@ -4,7 +4,7 @@
     
     {
 
-
+        public void Add(T entity);  
         void InsertRange(IEnumerable<T> entities);
 
         void Delete(T entity);

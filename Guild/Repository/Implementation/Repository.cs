@@ -8,16 +8,24 @@ namespace Guild.Repository.Implementation
     {
 
         private readonly ApplicationDbContext _context;
-        public DbSet<T> dbSet;
 
+        internal DbSet<T> database;
         public Repository(ApplicationDbContext context)
         {
+            
             _context = context;
-            this.dbSet = _context.Set<T>();
+            database = _context.Set<T>();
+
+        }
+
+        public void Add(T entity)
+        {
+
+            database.Add(entity);
         }
         public void Delete(T entity)
         {
-            dbSet.Remove(entity);
+            _context.Remove(entity);
             _context.SaveChanges();
         }
 
@@ -38,7 +46,7 @@ namespace Guild.Repository.Implementation
 
         public IEnumerable<T> GetAll()
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> query = database;
             return query.ToList();
         }
 

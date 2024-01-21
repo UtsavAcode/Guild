@@ -14,10 +14,7 @@ namespace Guild.Repository.Implementation
             _context = context;
         }
 
-        public void Add(Worker worker )
-        {
-            _context.Workers.Add(worker);
-        }
+    
         public void Save()
         {
             _context.SaveChanges();

@@ -15,16 +15,18 @@ namespace Guild.Controllers
             _registerContext = registerContext;
            
         }
+
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Register(Worker worker)
+        public IActionResult Register(Register worker)
         {
          
-                var register = new Register()
+                var register = new Worker()
                 {
 
                     Name = worker.Name,
@@ -36,15 +38,14 @@ namespace Guild.Controllers
                     
                 };
 
-                if (register != null)
-                {
+               
                     _registerContext.Add(register);
                     _registerContext.Save();
-                return RedirectToAction("Index");
-            }
+                     return RedirectToAction("Index");
+            
 
                 
-            return View();
+            /*return View();*/
         }
     }
 }
