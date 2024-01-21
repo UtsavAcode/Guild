@@ -43,8 +43,8 @@ namespace Guild.Controllers
                     };
                     _registerContext.Add(register);
                     _registerContext.Save();
-                   /* SetMessage("Data Inserted Successfully !", "SuccessMessage");*/
-                    return RedirectToAction("Index","Home");
+                    TempData["Success"] = "Registered Successfully";
+                    return RedirectToAction("Index","Guild");
                 }
             }
 
