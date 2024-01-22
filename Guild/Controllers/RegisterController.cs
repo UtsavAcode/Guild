@@ -52,7 +52,7 @@ namespace Guild.Controllers
             catch (Exception ex)
             {
                 /*SetMessage($"Opps !! Cannot Add Data. {ex.Message}", "ErrorMessage");*/
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",ex);
             }
                 
             return View();
@@ -79,32 +79,40 @@ namespace Guild.Controllers
             else
             {
                 TempData["error"] = "Data Not Found";
-                return RedirectToAction("Index","Register");
+                return RedirectToAction("Index","Guild");
             }
         }
 
         [HttpPost]
+
         public IActionResult Edit(Update update)
         {
-
-            
-         var worker = _registerContext.FindById(update.Id);
+            try
+            {
+                var worker = _registerContext.FindById(update.Id);
 
                 if (ModelState.IsValid)
                 {
-                    worker.Name = update.Name;
-                    worker.Email = update.Email;
-                    worker.Phone = update.Phone;
-                    worker.Age = update.Age;
-                    worker.Password = update.Password;
+                    update.Name = worker.Name;
+                    update.Email = worker.Email;
+                    update.Phone = worker.Phone;
+                    update.Age = worker.Age;
+                  
 
-                _registerContext.Update(worker);
-                _registerContext.Save();
-                return RedirectToAction("Index", "Guild");
-                    }
-
-                return View("Edit",update);
-           
+                    _registerContext.Update(worker);
+                    _registerContext.Save();
+                    Console.WriteLine("Redirecting to Index");
+                    return RedirectToAction("Index", "Guild");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception for debugging
+                Console.WriteLine(ex.Message);
+                throw; // Rethrow the exception if needed
+            }
+            return View(update);
+            
         }
     }
 }

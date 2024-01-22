@@ -22,10 +22,9 @@ namespace Guild.Repository.Implementation
             _context.SaveChanges();
         }
 
-        public void Update(Worker update)
+        public void Update(Worker obj)
         {
-            _context.Workers?.Update(update);
+            _context.Workers.Update(obj);
         }
-
     }
 }

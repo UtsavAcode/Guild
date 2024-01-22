@@ -1,6 +1,8 @@
-﻿<h1>Hello and welcome to the GUILD System 🙇.</h1>
+﻿@model List<Guild.Models.Domain.Worker>
 
-@model List<Guild.Models.Domain.Worker>
+<h1>Hello and welcome to the GUILD System 🙇.</h1>
+
+
 
 <div class="text-center">
     <h4 class="display-4">This is just a landing page (><)</h4>
@@ -19,8 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model != null)
-                    {
+                   
                         @foreach (var worker in Model)
                         {
                             <tr>
@@ -29,12 +30,12 @@
                                 <td>@worker.Phone</td>
                                 <td>@worker.Age</td>
                                 <td>@worker.Password</td>
-                                <td><a class="btn btn-Primary" asp-controller="Register" asp-action="Edit" asp-route-id="@worker.Id">Update</a></td>
-                                <td><a class="btn btn-Danger" asp-action="" asp-controller="Register">Delete</a></td>
+                            <td><a class="btn btn-primary" asp-action="Edit"  asp-controller="Register" asp-route-id="@worker.Id">Update</a></td>
+                                <td><a class="btn btn-danger" asp-action="" asp-controller="Register">Delete</a></td>
                             </tr>
                         }
 
-                    }
+                    
                 </tbody>
             </table>
         </div>
