@@ -1,6 +1,8 @@
 ﻿using Guild.Data;
 using Guild.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Guild.Repository.Implementation
 {
@@ -8,28 +10,44 @@ namespace Guild.Repository.Implementation
     {
 
        private readonly ApplicationDbContext _repository;
-        public DbSet<T> dbSet;
+        internal DbSet<T> database;
         public Repository(ApplicationDbContext repository)
         {
             _repository = repository;
 
-            this.dbSet = _repository.Set<T>();
+            database = _repository.Set<T>();
         }
 
         public void Add(T entity)
         {
-            dbSet.Add(entity);
+            database.Add(entity);
         }
 
         public void Delete(T entity)
         {
-            dbSet.Remove(entity);
+            database.Remove(entity);
         }
 
+        public T Get(Expression<Func<T, bool>> filter)
+        {
+            IQueryable<T> query = database;
+            query = query.Where(filter);
+            return query.FirstOrDefault();
+        }
         public IEnumerable<T> GetAll()
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> query = database;
             return query.ToList();
+        }
+
+       
+
+      
+
+        public T FindById(int Id)
+        {
+            DbSet<T>? query = database;
+            return query.Find(Id);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Guild.Models;
 using Guild.Models.Domain;
 using Guild.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Guild.Repository.Implementation
 {
@@ -14,10 +15,17 @@ namespace Guild.Repository.Implementation
             _context = context;
         }
 
-    
+     
+
         public void Save()
         {
             _context.SaveChanges();
         }
+
+        public void Update(Worker update)
+        {
+            _context.Workers?.Update(update);
+        }
+
     }
 }

@@ -9,6 +9,7 @@ namespace Guild.Controllers
 
     {
         private readonly IRegisterRepository _registerContext;
+     
    
         public RegisterController(IRegisterRepository registerContext)
         {
@@ -55,6 +56,55 @@ namespace Guild.Controllers
             }
                 
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            var worker = _registerContext.Get(x => x.Id == Id);
+
+            if(worker != null)
+            {
+                var employeeData = new Update()
+                {
+                    Id = worker.Id,
+                    Name = worker.Name,
+                    Email = worker.Email,
+                    Phone = worker.Phone,
+                    Age= worker.Age,
+                    Password = worker.Password,
+                };
+                return View(employeeData);
+            }
+            else
+            {
+                TempData["error"] = "Data Not Found";
+                return RedirectToAction("Index","Register");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Update update)
+        {
+
+            
+         var worker = _registerContext.FindById(update.Id);
+
+                if (ModelState.IsValid)
+                {
+                    worker.Name = update.Name;
+                    worker.Email = update.Email;
+                    worker.Phone = update.Phone;
+                    worker.Age = update.Age;
+                    worker.Password = update.Password;
+
+                _registerContext.Update(worker);
+                _registerContext.Save();
+                return RedirectToAction("Index", "Guild");
+                    }
+
+                return View("Edit",update);
+           
         }
     }
 }

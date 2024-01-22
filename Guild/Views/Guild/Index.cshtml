@@ -29,6 +29,8 @@
                                 <td>@worker.Phone</td>
                                 <td>@worker.Age</td>
                                 <td>@worker.Password</td>
+                                <td><a class="btn btn-Primary" asp-controller="Register" asp-action="Edit" asp-route-id="@worker.Id">Update</a></td>
+                                <td><a class="btn btn-Danger" asp-action="" asp-controller="Register">Delete</a></td>
                             </tr>
                         }
 

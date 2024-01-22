@@ -1,10 +1,16 @@
-﻿@model Guild.Models.Register
+﻿@model Guild.Models.Update
 <h1>You can create your profile here 👍.</h1>
 
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <form method="post" action="/Register/AddEmployee">
+            <form method="post" asp-action="Edit" asp-controller="Register">
+
+                <div class="mb-3">
+                    <label class="form-label">Id</label>
+                    <input type="text" class="form-control" asp-for="Id" readonly>
+
+                </div>
                 <div class="mb-3">
                     <label class="form-label">Name</label>
                     <input type="text" class="form-control" asp-for="Name">
@@ -31,12 +37,7 @@
 
 
 
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" asp-for="Password">
-                </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="Submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
