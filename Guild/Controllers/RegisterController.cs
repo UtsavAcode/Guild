@@ -2,6 +2,7 @@
 using Guild.Models.Domain;
 using Guild.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Guild.Controllers
 {
@@ -113,6 +114,35 @@ namespace Guild.Controllers
             }
             return View(update);
             
+        }
+
+        [HttpGet]
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(Register user)
+        {
+
+            var myUser = _registerContext.Get(x => x.Email == user.Email && x.Password == user.Password);
+            
+            if (myUser != null)
+            {
+                //creating a session and storing myUser in session with the email
+                HttpContext.Session.SetString("LoginSession", myUser.Email);
+                return RedirectToAction("Dashboard", "Guild");
+            }
+            else
+            {
+                TempData["error"] = "Login Failed";
+                return RedirectToAction("AddEmployee","Register");
+            }
+            
+            
+
         }
     }
 }

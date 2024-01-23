@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//To use session 
 builder.Services.AddSession();
 
 
@@ -37,6 +38,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+//To use session include
 app.UseSession();
 app.UseAuthorization();
 //this is also added
