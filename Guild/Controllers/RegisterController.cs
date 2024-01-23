@@ -73,7 +73,7 @@ namespace Guild.Controllers
                     Email = worker.Email,
                     Phone = worker.Phone,
                     Age= worker.Age,
-                    Password = worker.Password,
+                    
                 };
                 return View(employeeData);
             }
@@ -94,10 +94,10 @@ namespace Guild.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    update.Name = worker.Name;
-                    update.Email = worker.Email;
-                    update.Phone = worker.Phone;
-                    update.Age = worker.Age;
+                    worker.Name = update.Name;
+                    worker.Email = update.Email;
+                    worker.Phone = update.Phone;
+                    worker.Age = update.Age;
                   
 
                     _registerContext.Update(worker);
@@ -143,6 +143,17 @@ namespace Guild.Controllers
             
             
 
+        }
+
+        public IActionResult Logout()
+        {
+            if(HttpContext.Session.GetString("LoginSession") != null)
+            {
+                HttpContext.Session.Remove("LoginSession");
+                return RedirectToAction("Index","Guild");
+
+            }
+            return View();
         }
     }
 }

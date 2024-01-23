@@ -24,16 +24,17 @@ namespace Guild.Controllers
             return View("Index",workers);
         }
 
+        [HttpGet]
         public IActionResult DashBoard()
         {
-            if (HttpContext.Session.GetString("UserSession") != null)
+            if (HttpContext.Session.GetString("LoginSession") != null)
             {
-                ViewBag.UserSession = HttpContext.Session.GetString("UserSession").ToString();
+                ViewBag.UserSession = HttpContext.Session.GetString("LoginSession").ToString();
             }
 
             else
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login","Register");
             }
             return View();
         }
