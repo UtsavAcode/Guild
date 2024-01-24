@@ -3,9 +3,13 @@ using Guild.Models.Domain;
 using Guild.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Guild.Controllers
 {
+    [Authorize]
     public class RegisterController : Controller
 
     {
@@ -131,9 +135,19 @@ namespace Guild.Controllers
             
             if (myUser != null)
             {
-                //creating a session and storing myUser in session with the email
-                HttpContext.Session.SetString("LoginSession", myUser.Email);
-                return RedirectToAction("Dashboard", "Guild");
+                /* //creating a session and storing myUser in session with the email
+                 HttpContext.Session.SetString("LoginSession", myUser.Email);
+                 return RedirectToAction("Dashboard", "Guild");*/
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, myUser.Email),
+                    
+                };
+
+
+                var claimsIdentity = new ClaimsIdentity(claims,"Login");
+                return RedirectToAction("Dashboard","Guild");
             }
             else
             {

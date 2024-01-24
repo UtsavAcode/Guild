@@ -2,6 +2,7 @@
 using Guild.Data;
 using Guild.Repository.Implementation;
 using Guild.Repository.IRepository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 //To use session 
 builder.Services.AddSession();
+
+
+//To use cookies 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.SlidingExpiration = true;
+        options.LoginPath = "/Register/Login";
+        
+        options.AccessDeniedPath = "/Forbidden/";
+    });
 
 
 

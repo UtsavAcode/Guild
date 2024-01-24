@@ -2,7 +2,7 @@
 using Guild.Models.Domain;
 using Guild.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Http;
 
 namespace Guild.Controllers
 {
