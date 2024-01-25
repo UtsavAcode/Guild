@@ -18,8 +18,7 @@ builder.Services.AddSession();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-        options.SlidingExpiration = true;
+      
         options.LoginPath = "/Register/Login";
         
         options.AccessDeniedPath = "/Forbidden/";
@@ -59,7 +58,13 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 //Admin area section.
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "MyArea",
+      pattern: "{area:exists}/{controller=Admin}/{action=AdminPanel}/{id?}"
+    );
+});
 
 //Admin Area section ends.
 

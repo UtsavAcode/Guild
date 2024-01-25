@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+
+using System.Threading.Tasks;
 
 namespace Guild.Controllers
 {
-    [Authorize]
+    
     public class RegisterController : Controller
 
     {
@@ -63,101 +66,7 @@ namespace Guild.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Edit(int Id)
-        {
-            var worker = _registerContext.Get(x => x.Id == Id);
-
-            if(worker != null)
-            {
-                var employeeData = new Update()
-                {
-                    Id = worker.Id,
-                    Name = worker.Name,
-                    Email = worker.Email,
-                    Phone = worker.Phone,
-                    Age= worker.Age,
-                    
-                };
-                return View(employeeData);
-            }
-            else
-            {
-                TempData["error"] = "Data Not Found";
-                return RedirectToAction("Index","Guild");
-            }
-        }
-
-        [HttpPost]
-
-        public IActionResult Edit(Update update)
-        {
-            try
-            {
-                var worker = _registerContext.FindById(update.Id);
-
-                if (ModelState.IsValid)
-                {
-                    worker.Name = update.Name;
-                    worker.Email = update.Email;
-                    worker.Phone = update.Phone;
-                    worker.Age = update.Age;
-                  
-
-                    _registerContext.Update(worker);
-                    _registerContext.Save();
-                    Console.WriteLine("Redirecting to Index");
-                    return RedirectToAction("Index", "Guild");
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log the exception for debugging
-                Console.WriteLine(ex.Message);
-                throw; // Rethrow the exception if needed
-            }
-            return View(update);
-            
-        }
-
-        [HttpGet]
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Login(Register user)
-        {
-
-            var myUser = _registerContext.Get(x => x.Email == user.Email && x.Password == user.Password);
-            
-            if (myUser != null)
-            {
-                /* //creating a session and storing myUser in session with the email
-                 HttpContext.Session.SetString("LoginSession", myUser.Email);
-                 return RedirectToAction("Dashboard", "Guild");*/
-
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, myUser.Email),
-                    
-                };
-
-
-                var claimsIdentity = new ClaimsIdentity(claims,"Login");
-                return RedirectToAction("Dashboard","Guild");
-            }
-            else
-            {
-                TempData["error"] = "Login Failed";
-                return RedirectToAction("AddEmployee","Register");
-            }
-            
-            
-
-        }
+      
 
         public IActionResult Logout()
         {

@@ -6,6 +6,8 @@ namespace Guild.Models
     {
         [Key]
         public int Id { get; set; }
+
+        public string ReturnUrl {  get; set; }
       
         [Required]
         public string Name { get; set; }

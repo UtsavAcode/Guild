@@ -1,0 +1,37 @@
+﻿@model List<Guild.Models.Domain.Worker>
+
+<h1>The users are all here.</h1>
+
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach(var worker in Model){
+                <tr>
+                    <td>@worker.Id</td>
+                    <td>@worker.Name</td>
+                    <td>@worker.Email</td>
+                    <td>@worker.Age</td>
+                    <td>@worker.Phone</td>
+                    <td>@worker.Password</td>
+                    <td>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="Admin" asp-action="Edit" asp-route-id="@worker.Id">Edit</a>
+                            <a class="btn btn-danger" asp-area="Admin" asp-controller="Admin" asp-action="DeleteWorker" asp-route-id="@worker.Id">Delete</a>
+                    </td>
+                </tr>}
+            </tbody>
+        </table>
+    </div>
+</div>
