@@ -1,0 +1,59 @@
+﻿@model Guild.Models.Profile
+<h1>You can create your profile here 👍.</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" action="">
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" asp-for="Name">
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" asp-for="Email">
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="number" class="form-control" asp-for="Phone">
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Age</label>
+                    <input type="number" class="form-control" asp-for="Age">
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <input type="number" class="form-control" asp-for="Address">
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Age</label>
+                    <input type="number" class="form-control" asp-for="Occupation">
+
+                </div>
+
+
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" asp-for="Password">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <h1>This is a picture 😎</h1>
+        </div>
+    </div>
+</div>
