@@ -39,7 +39,7 @@ namespace Guild.Controllers
             }
         }
 
-        [HttpPost]
+      /*  [HttpPost]
         public IActionResult Profile(Models.Profile model)
         {
            var user = _profileContext.FindById(model.ProfileId);
@@ -73,6 +73,6 @@ namespace Guild.Controllers
 
                 _profileContext.Add(newUser);
             }
-        }
+        }*/
     }
 }

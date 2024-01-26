@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Guild.Controllers
 {
@@ -66,6 +67,29 @@ namespace Guild.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(Register model)
+        {
+            var user = _registerContext.Get(x=> x.Email == model.Email && x.Password == model.Password);
+
+            if (user != null)
+            {
+                HttpContext.Session.SetString("LoginSession", user.Email);
+                return RedirectToAction("Dashboard", "Guild");
+            }
+
+            else
+            {
+                TempData["error"] = "Login Failed.";
+            }
+            return View();
+        }
       
 
         public IActionResult Logout()

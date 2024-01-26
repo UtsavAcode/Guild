@@ -1,0 +1,17 @@
+﻿@model Guild.Models.Login
+
+<h1>This is a login form.</h1>
+
+<form asp-action="Login" method="post">
+    <label >Email</label>
+    <input type="email" asp-for="Email" class="form-control" />
+
+    <label>Password
+    </label>
+
+    <input type="password" asp-for="Password" class="form-control"/>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
