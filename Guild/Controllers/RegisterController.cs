@@ -55,7 +55,35 @@ namespace Guild.Controllers
                     _registerContext.Save();
                     TempData["Success"] = "Registered Successfully";
                     return RedirectToAction("Index","Guild");
+
+
+                    var existingUser = _registerContext.Get(w => w.Email == worker.Email);
+
+                    if (existingUser != null)
+                    {
+                        var profile = new UserProfile() { 
+                            
+                            Address = worker.Address
+                        };
+
+                        _registerContext.Update(existingUser);
+                        _registerContext.Save();
+
+                        TempData["success"] = "The profile is created successfully.";
+                        return RedirectToAction("Dashboard", "Guild");
+                    }
+
+                    else
+                    {
+                        TempData["error"] = "Sorry you need to Register first.";
+                        return RedirectToAction("AddEmployee");
+                    }
+
+
+                  
                 }
+
+               
             }
 
             catch (Exception ex)

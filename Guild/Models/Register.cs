@@ -23,5 +23,7 @@ namespace Guild.Models
 
         [Required]
         public string Password { get; set; }
+
+        public string Address { get; set; }
     }
 }
