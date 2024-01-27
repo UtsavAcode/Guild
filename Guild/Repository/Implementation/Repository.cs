@@ -1,4 +1,5 @@
 ﻿using Guild.Data;
+using Guild.Models.Domain;
 using Guild.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -37,9 +38,16 @@ namespace Guild.Repository.Implementation
         public IEnumerable<T> GetAll()
         {
             IQueryable<T> query = database;
-            return query.ToList();
+            return query.ToList().Select(item =>
+            {
+                if(item is Worker worker)
+                {
+                    worker.Address = worker.Address ?? "";
+                }
+                return item;
+            });
         }
-
+        
        
 
       

@@ -12,5 +12,6 @@ namespace Guild.Data
         }
 
         public DbSet<Worker>Workers {  get; set; }
+        
     }
 }

@@ -57,29 +57,6 @@ namespace Guild.Controllers
                     return RedirectToAction("Index","Guild");
 
 
-                    var existingUser = _registerContext.Get(w => w.Email == worker.Email);
-
-                    if (existingUser != null)
-                    {
-                        var profile = new UserProfile() { 
-                            
-                            Address = worker.Address
-                        };
-
-                        _registerContext.Update(existingUser);
-                        _registerContext.Save();
-
-                        TempData["success"] = "The profile is created successfully.";
-                        return RedirectToAction("Dashboard", "Guild");
-                    }
-
-                    else
-                    {
-                        TempData["error"] = "Sorry you need to Register first.";
-                        return RedirectToAction("AddEmployee");
-                    }
-
-
                   
                 }
 
@@ -129,6 +106,38 @@ namespace Guild.Controllers
 
             }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Create(int? Id)
+        {
+            if (Id == null)
+            {
+                TempData["error"] = "Invalid user ID.";
+            }
+            var user = _registerContext.Get(x=> x.Id == Id);
+
+
+            if (user != null) {
+                var profileData = new UserProfile()
+                {
+                    ProfileId = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Age = user.Age,
+                    Phone = user.Phone,
+                };
+
+                return View(profileData);
+            
+            }
+
+            else
+            {
+                TempData["error"] = "Data not found.";
+                return RedirectToAction("AddEmployee");
+
+            }
         }
     }
 }

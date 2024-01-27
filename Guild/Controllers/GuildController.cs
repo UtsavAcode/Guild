@@ -27,7 +27,7 @@ namespace Guild.Controllers
         [HttpGet]
         public IActionResult DashBoard()
         {
-/*            if (HttpContext.Session.GetString("LoginSession") != null)
+          /* if (HttpContext.Session.GetString("LoginSession") != null)
             {
                 ViewBag.UserSession = HttpContext.Session.GetString("LoginSession").ToString();
             }
@@ -36,7 +36,9 @@ namespace Guild.Controllers
             {
                 return RedirectToAction("Login","Register");
             }*/
-            return View();
+
+            var users = _context.GetAll();
+            return View(users);
         }
     }
 }
