@@ -1,4 +1,4 @@
-﻿using Guild.Models.Domain;
+﻿
 
 namespace Guild.Models
 {

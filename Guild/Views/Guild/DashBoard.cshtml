@@ -1,5 +1,10 @@
-﻿@model Guild.Models.Domain.Worker
+﻿@model Guild.Models.UserProfile
 @{
-    var id = Model.Id;
+    var Id = Model?.ProfileId;
+
+    if (Id != null)
+    {
+        <a class="btn btn-success" asp-action="Create" asp-controller="Register" asp-route-id="@Model.ProfileId">Profile</a>
+    }
 }
-    <a class="btn btn-success" asp-action="Create" asp-controller="Register" asp-route-id="@Model.Id">Profile</a>
+   

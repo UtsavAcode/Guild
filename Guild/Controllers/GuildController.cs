@@ -27,18 +27,38 @@ namespace Guild.Controllers
         [HttpGet]
         public IActionResult DashBoard()
         {
-          /* if (HttpContext.Session.GetString("LoginSession") != null)
+            var email = HttpContext.Session.GetString("LoginSession");
+
+            if (email !=null)
             {
-                ViewBag.UserSession = HttpContext.Session.GetString("LoginSession").ToString();
+                ViewBag.MySession = email;
+
+                var user = _context.Get(x => x.Email == email);
+
+                if (user != null)
+                {
+                    var userProfile = new UserProfile()
+                    {
+                        ProfileId = user.Id,
+                        Name    = user.Name,
+                        Age = user.Age,
+                        Email = user.Email,
+                        Phone = user.Phone,
+                    };
+
+                    return View(userProfile);
+                }
             }
+
+            
 
             else
             {
-                return RedirectToAction("Login","Register");
-            }*/
-
-            var users = _context.GetAll();
-            return View(users);
+                return RedirectToAction("Login");
+            }
+           
+           
+            return View();
         }
     }
 }
