@@ -44,6 +44,7 @@ namespace Guild.Controllers
                         Age = user.Age,
                         Email = user.Email,
                         Phone = user.Phone,
+                        Address = user.Address,
                     };
 
                     return View(userProfile);
