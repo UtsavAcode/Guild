@@ -139,5 +139,41 @@ namespace Guild.Controllers
 
             }
         }
+
+
+        [HttpPost]
+        public IActionResult Create(UserProfile profile)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var userId = profile.ProfileId;
+
+                var existingUser = _registerContext.Get(x => x.Id == userId);
+
+                if (existingUser != null)
+                {
+                    existingUser.Address = profile.Address;
+                    _registerContext.Add(existingUser);
+                    _registerContext.Save();
+
+                    TempData["success"] = "The profile is created successfully.";
+                    return RedirectToAction("Dashboard", "Guild");
+                }
+
+
+                else
+                {
+                    TempData["error"] = "Cannot create the profile.";
+                    return RedirectToAction("Login");
+                }
+
+            }
+
+            TempData["error"] = "Invalid profile data.";
+            return RedirectToAction("Dashboard", "Guild");
+        }
+
+
     }
 }

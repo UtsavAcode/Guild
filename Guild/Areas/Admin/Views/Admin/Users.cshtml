@@ -12,7 +12,7 @@
                     <th>Email</th>
                     <th>Age</th>
                     <th>Phone</th>
-                    <th>Password</th>
+                    <th>Address</th>
                 </tr>
             </thead>
 
@@ -24,8 +24,8 @@
                     <td>@worker.Name</td>
                     <td>@worker.Email</td>
                     <td>@worker.Age</td>
-                    <td>@worker.Phone</td>
-                    <td>@worker.Password</td>
+                    <td>@worker.Phone</td>          
+                    <td>@worker.Address</td>
                     <td>
                         <a class="btn btn-primary" asp-area="Admin" asp-controller="Admin" asp-action="Edit" asp-route-id="@worker.Id">Edit</a>
                             <a class="btn btn-danger" asp-area="Admin" asp-controller="Admin" asp-action="DeleteWorker" asp-route-id="@worker.Id">Delete</a>
