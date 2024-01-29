@@ -145,31 +145,6 @@ namespace Guild.Controllers
 
         }
 
-        /*  [HttpPost]
-          public IActionResult Create(Models.Profile profile)
-          {
-              if (ModelState.IsValid) {
-
-                  var user = new Worker()
-                  {
-                      Address = profile.Address,
-                  };
-
-                  _registerContext.Add(user);
-                  _registerContext.Save();
-
-                  TempData["success"] = "The profile is created.";
-                  return RedirectToAction("Dashboard", "Guild");
-
-              }
-
-              else
-              {
-                  TempData["error"] = "The profile creation failed.";
-                  return View("Create");
-              }
-             *//*
-          }*/
 
         [HttpPost]
         public IActionResult Create(UserProfile profile)

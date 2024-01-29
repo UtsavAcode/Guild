@@ -1,4 +1,5 @@
 ﻿@model Guild.Models.UserProfile
+
 @{
     var Id = Model?.ProfileId;
 
@@ -8,3 +9,15 @@
     }
 }
    
+
+<table class="table">
+    <tr>
+        <th>Address</th>
+    </tr>
+
+    <tr>
+        <td>
+            @Model.Address
+        </td>
+    </tr>
+</table>
