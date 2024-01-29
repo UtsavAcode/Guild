@@ -149,7 +149,7 @@ namespace Guild.Controllers
         [HttpPost]
         public IActionResult Create(UserProfile profile)
         {
-            
+        
                 var user = _registerContext.Get(x => x.Id == profile.ProfileId);
 
                 if (user != null)
@@ -163,7 +163,6 @@ namespace Guild.Controllers
 
                 }
 
-               
 
             
             TempData["error"] = "Failed.";

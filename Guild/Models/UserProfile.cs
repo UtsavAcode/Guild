@@ -8,9 +8,7 @@ namespace Guild.Models
 
         public int ProfileId { get; set; }
 
-
-
-        
+               
         public string Name { get; set; }
 
 
