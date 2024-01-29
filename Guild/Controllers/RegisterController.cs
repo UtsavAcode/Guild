@@ -115,7 +115,7 @@ namespace Guild.Controllers
             {
                 TempData["error"] = "Invalid user ID.";
             }
-            var user = _registerContext.Get(x=> x.Id == Id);
+            var user = _registerContext.Get(x => x.Id == Id);
 
 
             if (user != null)
@@ -140,66 +140,63 @@ namespace Guild.Controllers
                 return RedirectToAction("AddEmployee");
             }
 
-            
-           /* return View();*/
-        
-        
+
+
+
         }
 
-        /*
-                [HttpPost]
-                public IActionResult Create(UserProfile profile)
-                {
-                    if (ModelState.IsValid)
-                    {
+        /*  [HttpPost]
+          public IActionResult Create(Models.Profile profile)
+          {
+              if (ModelState.IsValid) {
 
-                        var userId = profile.ProfileId;
+                  var user = new Worker()
+                  {
+                      Address = profile.Address,
+                  };
 
-                        var existingUser = _registerContext.Get(x => x.Id == userId);
+                  _registerContext.Add(user);
+                  _registerContext.Save();
 
-                        if (existingUser != null)
-                        {
-                            existingUser.Address = profile.Address;
-                            _registerContext.Add(existingUser);
-                            _registerContext.Save();
+                  TempData["success"] = "The profile is created.";
+                  return RedirectToAction("Dashboard", "Guild");
 
-                            TempData["success"] = "The profile is created successfully.";
-                            return RedirectToAction("Dashboard", "Guild");
-                        }
+              }
 
+              else
+              {
+                  TempData["error"] = "The profile creation failed.";
+                  return View("Create");
+              }
+             *//*
+          }*/
 
-                        else
-                        {
-                            TempData["error"] = "Cannot create the profile.";
-                            return RedirectToAction("Login");
-                        }
-
-                    }
-
-                    TempData["error"] = "Invalid profile data.";
-                    return RedirectToAction("Dashboard", "Guild");
-                }
-
-        */
-
-        /*    [HttpPost]
-            public IActionResult Create(UserProfile profile)
+        [HttpPost]
+        public IActionResult Create(UserProfile profile)
+        {
+            if (ModelState.IsValid)
             {
-                var user = _registerContext.FindById(profile.ProfileId);
-                if(ModelState.IsValid)
+                var user = _registerContext.Get(x => x.Id == profile.ProfileId);
+
+                if (user != null)
                 {
                     user.Address = profile.Address;
                     _registerContext.Update(user);
                     _registerContext.Save();
 
-                    TempData["success"] = "The profile is created.";
+                    TempData["success"] = "The profile.";
                     return RedirectToAction("Dashboard", "Guild");
+
                 }
 
-                return View(profile);
+               
 
-            }*/
+            }
+            TempData["error"] = "Failed.";
+            return View("Create");
 
+            
+        }
 
     }
 }
