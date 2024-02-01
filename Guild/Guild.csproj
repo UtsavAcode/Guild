@@ -29,4 +29,8 @@
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\Login.css" />
+  </ItemGroup>
+
 </Project>
