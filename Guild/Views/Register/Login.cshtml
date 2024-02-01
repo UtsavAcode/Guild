@@ -1,17 +1,39 @@
 ﻿@model Guild.Models.Login
 
-<h1>This is a login form.</h1>
 
-<form asp-action="Login" method="post">
-    <label >Email</label>
-    <input type="email" asp-for="Email" class="form-control" />
+<body class="bg-dark text-center">
 
-    <label>Password
-    </label>
+    <h1>This is a login form.</h1>
 
-    <input type="password" asp-for="Password" class="form-control"/>
+    <div class="container mx-auto">
+ 
 
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+            <form asp-action="Login" method="post">
+                <div class="row mx-auto mb-3">
+                    <h1 class="text-white">Login 🙇</h1>
+                </div>
+                <div class="form-group mb-3 mx-auto row">
+                <label class="text-white text-md-right">Email</label>
+                    <div class="col-md-6 mx-auto">
+                         <input type="email" asp-for="Email" class="form-control" />
+                    </div>
 
-</form>
+                </div>
+
+
+                <div class=" form-group mb-3 mx-auto row">
+                <label class="text-white">Password </label>
+                    <div class="col-md-6 mx-auto">
+                        <input type="password" asp-for="Password" class="form-control" />
+                    </div>
+                    
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
+  
+
+    </div>
+</body>
