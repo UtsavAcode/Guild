@@ -24,7 +24,9 @@ namespace Guild.Models
 
         public string Password { get; set; }
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
+
+        public string? ProfileImage { get; set; }
     }
 
 
