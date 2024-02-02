@@ -43,7 +43,8 @@ namespace Guild.Controllers
                     var register = new Worker()
                     {
 
-                        Name = worker.Name,
+                        FirstName = worker.FirstName,
+                        LastName = worker.LastName,
                         Age = worker.Age,
                         Email = worker.Email,
                         Password = worker.Password,
@@ -123,7 +124,8 @@ namespace Guild.Controllers
                 var profileData = new UserProfile()
                 {
                     ProfileId = user.Id,
-                    Name = user.Name,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     Email = user.Email,
                     Age = user.Age,
                     Phone = user.Phone,

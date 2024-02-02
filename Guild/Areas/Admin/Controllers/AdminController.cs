@@ -39,7 +39,8 @@ namespace Guild.Areas.Admin.Controllers
                 var employeeData = new Update()
                 {
                     Id = worker.Id,
-                    Name = worker.Name,
+                    FirstName = worker.FirstName,
+                    LastName = worker.LastName,
                     Email = worker.Email,
                     Phone = worker.Phone,
                     Age = worker.Age,
@@ -63,7 +64,8 @@ namespace Guild.Areas.Admin.Controllers
 
             if(ModelState.IsValid)
             {
-                worker.Name = update.Name;
+                worker.FirstName = update.FirstName;
+                worker.LastName = update.LastName;
                 worker.Age = update.Age;
                 worker.Phone = update.Phone;
                 worker.Email = update.Email;
@@ -95,6 +97,12 @@ namespace Guild.Areas.Admin.Controllers
                 TempData["error"] = "Record could not be deleted.";
                 return RedirectToAction("Users");
             }
+        }
+
+        public IActionResult Profiles()
+        {
+            var user  = _repo.GetAll().ToList();
+            return View(user);
         }
 
 

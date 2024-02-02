@@ -7,16 +7,27 @@
     <div class="row">
         <form  asp-controller="Register" asp-action="Create" method="post">
 
-            <div class="mb-3">
-                <label class="form-label">Id</label>
-                <input type="text" class="form-control" asp-for="ProfileId" readonly>
-                <input type="hidden" asp-for="ProfileId">
-            </div>
+          <div class="row">
+                <div class="mb-3">
+                    <label class="form-label">Id</label>
+                    <input type="text" class="form-control" asp-for="ProfileId" readonly>
+                    <input type="hidden" asp-for="ProfileId">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" asp-for="FirstName" readonly>
+
+                </div>
+          </div>
+
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control" asp-for="Name" readonly>
+                <input type="text" class="form-control" asp-for="LastName" readonly>
 
             </div>
+
+
+
 
             <div class="mb-3">
                 <label class="form-label">Email</label>

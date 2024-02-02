@@ -40,7 +40,8 @@ namespace Guild.Controllers
                     var userProfile = new UserProfile()
                     {
                         ProfileId = user.Id,
-                        Name    = user.Name,
+                        FirstName    = user.FirstName,
+                        LastName = user.LastName,   
                         Age = user.Age,
                         Email = user.Email,
                         Phone = user.Phone,
