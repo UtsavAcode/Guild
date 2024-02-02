@@ -18,12 +18,13 @@ namespace Guild.Controllers
 
     {
         private readonly IRegisterRepository _registerContext;
-     
-   
-        public RegisterController(IRegisterRepository registerContext)
+
+        IWebHostEnvironment webHostEnvironment;
+
+        public RegisterController(IRegisterRepository registerContext, IWebHostEnvironment hc)
         {
             _registerContext = registerContext;
-           
+           webHostEnvironment = hc;
         }
 
         [HttpGet]
@@ -121,8 +122,10 @@ namespace Guild.Controllers
 
             if (user != null)
             {
+                
                 var profileData = new UserProfile()
                 {
+
                     ProfileId = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
@@ -152,11 +155,23 @@ namespace Guild.Controllers
         public IActionResult Create(UserProfile profile)
         {
         
-                var user = _registerContext.Get(x => x.Id == profile.ProfileId);
+            var user = _registerContext.Get(x => x.Id == profile.ProfileId);
+            if (user != null)
+            {
+                string filename = "default.jpg";
 
-                if (user != null)
-                {
+            if(profile.ProfileImage != null)
+            {
+                filename = Guid.NewGuid().ToString()+"_"+profile.ProfileImage.FileName;
+                string ServerName = Path.Combine(webHostEnvironment.WebRootPath, Path.Combine("Image", filename));
+
+                profile.ProfileImage.CopyTo(new FileStream(ServerName,FileMode.Create));
+
+                
+
+            }          
                     user.Address = profile.Address;
+                     user.ProfileImage = filename;
                     _registerContext.Update(user);
                     _registerContext.Save();
 
@@ -173,5 +188,6 @@ namespace Guild.Controllers
             
         }
 
+       
     }
 }

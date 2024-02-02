@@ -26,7 +26,7 @@ namespace Guild.Models
 
         public string? Address { get; set; }
 
-        public string? ProfileImage { get; set; }
+        public IFormFile? ProfileImage { get; set; }
     }
 
 
