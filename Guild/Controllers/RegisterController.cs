@@ -162,10 +162,17 @@ namespace Guild.Controllers
 
             if(profile.ProfileImage != null)
             {
-                filename = Guid.NewGuid().ToString()+"_"+profile.ProfileImage.FileName;
-                string ServerName = Path.Combine(webHostEnvironment.WebRootPath, Path.Combine("Image", filename));
 
-                profile.ProfileImage.CopyTo(new FileStream(ServerName,FileMode.Create));
+                    string folder = "Image";
+
+                    folder += profile.ProfileImage.FileName + Guid.NewGuid().ToString();
+                    string serverFolder = Path.Combine(webHostEnvironment.WebRootPath, folder);
+
+                    
+   /*             filename = Guid.NewGuid().ToString()+"_"+profile.ProfileImage.FileName;
+                string ServerName = Path.Combine(webHostEnvironment.WebRootPath, Path.Combine("Image", filename));
+*/
+                profile.ProfileImage.CopyTo(new FileStream(serverFolder,FileMode.Create));
 
                 
 
