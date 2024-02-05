@@ -1,23 +1,20 @@
-﻿@model Guild.Models.UserProfile
+﻿@model List<Guild.Models.UserProfile>
 
-@{
-    var Id = Model?.ProfileId;
+        <a class="btn btn-success" asp-action="Create" asp-controller="Register" asp-route-id="ProfileId">Profile</a>
+    
 
-    if (Id != null)
-    {
-        <a class="btn btn-success" asp-action="Create" asp-controller="Register" asp-route-id="@Model.ProfileId">Profile</a>
-    }
-}
-   
-
-<table class="table">
-    <tr>
-        <th>Address</th>
-    </tr>
-
-    <tr>
-        <td>
-            @Model.Address
-        </td>
-    </tr>
-</table>
+@foreach(var user in Model){
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="..." class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@user.FirstName</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+</div>}

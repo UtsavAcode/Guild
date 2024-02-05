@@ -1,5 +1,7 @@
 ﻿
 
+using System.Drawing;
+
 namespace Guild.Models
 {
     public class UserProfile
@@ -27,6 +29,7 @@ namespace Guild.Models
         public string? Address { get; set; }
 
         public IFormFile? ProfileImage { get; set; }
+        public string ProfileImageUrl { get; set; }
     }
 
 

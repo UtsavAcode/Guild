@@ -125,7 +125,7 @@ namespace Guild.Controllers
                 
                 var profileData = new UserProfile()
                 {
-
+                    ProfileImageUrl = user.ProfileImageUrl,
                     ProfileId = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
@@ -164,21 +164,20 @@ namespace Guild.Controllers
             {
 
                     string folder = "Image";
+                    folder += Guid.NewGuid().ToString()+"_"+ profile.ProfileImage.FileName  ;
 
-                    folder += profile.ProfileImage.FileName + Guid.NewGuid().ToString();
+                    profile.ProfileImageUrl = folder ;
+
                     string serverFolder = Path.Combine(webHostEnvironment.WebRootPath, folder);
 
-                    
-   /*             filename = Guid.NewGuid().ToString()+"_"+profile.ProfileImage.FileName;
-                string ServerName = Path.Combine(webHostEnvironment.WebRootPath, Path.Combine("Image", filename));
-*/
+ 
                 profile.ProfileImage.CopyTo(new FileStream(serverFolder,FileMode.Create));
 
                 
 
             }          
                     user.Address = profile.Address;
-                     user.ProfileImage = filename;
+                     user.ProfileImageUrl = filename;
                     _registerContext.Update(user);
                     _registerContext.Save();
 

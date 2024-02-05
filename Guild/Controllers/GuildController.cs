@@ -27,6 +27,8 @@ namespace Guild.Controllers
         [HttpGet]
         public IActionResult DashBoard()
         {
+
+            var users = _context.GetAll().ToList();
             var email = HttpContext.Session.GetString("LoginSession");
 
             if (email !=null)
@@ -39,7 +41,9 @@ namespace Guild.Controllers
                 {
                     var userProfile = new UserProfile()
                     {
+                        ProfileImageUrl = user.ProfileImageUrl,
                         ProfileId = user.Id,
+
                         FirstName    = user.FirstName,
                         LastName = user.LastName,   
                         Age = user.Age,
@@ -60,7 +64,7 @@ namespace Guild.Controllers
             }
            
            
-            return View();
+            return View(users);
         }
     }
 }

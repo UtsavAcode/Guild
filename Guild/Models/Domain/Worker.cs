@@ -10,7 +10,7 @@
         public string Phone {  get; set; }
         public string Password { get; set; }
 
-        public string ProfileImage { get; set; }
+        public string ProfileImageUrl { get; set; }
         public string? Address { get; set; }
 
     }
