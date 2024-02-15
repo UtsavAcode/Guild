@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Guild.Controllers
 {
-    
+    [Authorize]
     public class RegisterController : Controller
 
     {
@@ -81,10 +81,35 @@ namespace Guild.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Register model)
+        public IActionResult Login(Register model, string userEmail,string userPassword)
         {
-            var user = _registerContext.Get(x=> x.Email == model.Email && x.Password == model.Password);
 
+            var user = _registerContext.Get(x => x.Email == model.Email && x.Password == model.Password);
+
+            if (userPassword== user.Password)
+            {
+                var claims = new List<Claim>{
+                    new Claim(ClaimTypes.Name,userEmail)
+                };
+
+                var identity = new ClaimsIdentity(
+                    claims,CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                var props = new AuthenticationProperties();
+                HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,principal, props).Wait();
+                return RedirectToAction("Dashboard", "Guild");
+            }
+
+            else
+            {
+                return View();
+            }
+
+
+           
+           
+            /*
             if (user != null)
             {
                 HttpContext.Session.SetString("LoginSession", user.Email);
@@ -94,20 +119,26 @@ namespace Guild.Controllers
             else
             {
                 TempData["error"] = "Login Failed.";
-            }
-            return View();
-        }
-      
+            }*/
 
-        public IActionResult Logout()
+
+           
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
         {
-            if(HttpContext.Session.GetString("LoginSession") != null)
+
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login");
+
+        /*    if(HttpContext.Session.GetString("LoginSession") != null)
             {
                 HttpContext.Session.Remove("LoginSession");
                 return RedirectToAction("Index","Guild");
 
-            }
-            return View();
+            }*/
+            
         }
 
         [HttpGet]

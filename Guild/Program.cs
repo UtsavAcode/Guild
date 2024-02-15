@@ -15,12 +15,12 @@ builder.Services.AddSession();
 
 
 //To use cookies 
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-      
-        options.LoginPath = "/Register/Login";
-        
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.SlidingExpiration = true;
         options.AccessDeniedPath = "/Forbidden/";
     });
 
@@ -53,9 +53,11 @@ app.UseRouting();
 
 //To use session include
 app.UseSession();
-app.UseAuthorization();
-//this is also added
 app.UseAuthentication();
+app.UseAuthorization();
+
+//app.MapRazorPages();
+app.MapDefaultControllerRoute();
 
 //Admin area section.
 app.UseEndpoints(endpoints =>
