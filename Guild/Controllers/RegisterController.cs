@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Guild.Controllers
 {
-    [Authorize]
+    
     public class RegisterController : Controller
 
     {
@@ -73,7 +73,7 @@ namespace Guild.Controllers
                 
             return View();
         }
-
+/*
         [HttpGet]
         public IActionResult Login()
         {
@@ -106,7 +106,7 @@ namespace Guild.Controllers
                 return View();
             }
 
-
+*/
            
            
             /*
@@ -123,7 +123,7 @@ namespace Guild.Controllers
 
 
            
-        }
+        /*}*/
 
         [HttpPost]
         public async Task<IActionResult> Logout()
